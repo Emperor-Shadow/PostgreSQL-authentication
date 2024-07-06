@@ -1,5 +1,5 @@
 const request = require('supertest');
-const app = require('../main'); // Adjust the path according to your project structure
+const app = require('..'); // Adjust the path according to your project structure
 
 describe('Authentication Endpoints', () => {
   it('should register user successfully with default organisation', async () => {

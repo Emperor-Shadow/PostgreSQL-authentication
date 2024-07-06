@@ -1,4 +1,5 @@
 {
+    "version": 2,
     "builds": [
       {
         "src": "main.js",
@@ -6,18 +7,10 @@
       }
     ],
     "routes": [
-      { "src": "/api/.*", "dest": "main.js" }
-    ],
-    "version": 2,
-    "env": {
-      "DATABASE_URL": "postgresql://postgres.asrtavlrykzqawpnvjdo:[YOUR-PASSWORD]@aws-0-eu-central-1.pooler.supabase.com:6543/postgres?pgbouncer=true",
-      "JWT_SECRET": "i-dont_know/what)to(type{here{so|fuck|it"
-    },
-    "build": {
-        "commands": [
-          "npm install -g prisma",
-          "prisma generate"
-        ]
+      {
+        "src": "/(.*)",
+        "dest": "/main.js"
       }
-    }
+    ]
+  }
   
