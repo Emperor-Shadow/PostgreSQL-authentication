@@ -223,14 +223,13 @@ app.post('/api/organisations/:orgId/users', verifyToken, async (req, res) => {
   if (!userId) { 
     return res.status(422).json({ errors: [{ field: 'userId', message: 'userId is required' }] });
    }
+ const user = await prisma.user.findUnique({
+    where: { id: userId },
+    include: { organisations: true }
+  });
 
   const org = await prisma.organisation.findUnique({
     where: { id: req.params.orgId },
-    include: { users: true }
-  });
-
-  const user = await prisma.user.findUnique({
-    where: { id: userId },
     include: { users: true }
   });
 
