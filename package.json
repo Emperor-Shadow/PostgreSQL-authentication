@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+     "postinstall": "prisma generate",
+      "build": "prisma generate && <actual-build-command>"
   },
   "keywords": [],
   "author": "",
