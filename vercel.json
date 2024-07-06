@@ -2,6 +2,10 @@
     "version": 2,
     "builds": [
       {
+        "src": "prisma",
+        "use": "@prisma/cli"
+      },
+      {
         "src": "main.js",
         "use": "@vercel/node"
       }
