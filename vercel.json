@@ -1,16 +1,21 @@
 {
-    "version": 2,
     "builds": [
-      {
-        "src": "main.js",
-        "use": "@vercel/node"
-      }
+      { "src": "vercel-build.js", "use": "@vercel/node" }
     ],
     "routes": [
-      {
-        "src": "/(.*)",
-        "dest": "/main.js"
-      }
-    ]
+      { "src": "/api/.*", "dest": "vercel-build.js" }
+    ],
+    "version": 2,
+    "functions": { "api/**/*.js": { "runtime": "nodejs14.x" } },
+    "env": {
+      "DATABASE_URL": "postgresql://postgres.asrtavlrykzqawpnvjdo:[YOUR-PASSWORD]@aws-0-eu-central-1.pooler.supabase.com:6543/postgres?pgbouncer=true",
+      "JWT_SECRET": "i-dont_know/what)to(type{here{so|fuck|it"
+    },
+    "build": {
+      "commands": [
+        "npm install -g prisma",
+        "prisma generate"
+      ]
+    }
   }
   
