@@ -243,7 +243,3 @@ app.post('/api/organisations/:orgId/users', verifyToken, async (req, res) => {
     message: 'User added to organisation successfully'
   });
 });
-
-
-// Export the app for testing
-module.exports = app;
