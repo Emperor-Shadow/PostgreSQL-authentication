@@ -229,6 +229,15 @@ app.post('/api/organisations/:orgId/users', verifyToken, async (req, res) => {
     include: { users: true }
   });
 
+  const user = await prisma.user.findUnique({
+    where: { id: userId },
+    include: { users: true }
+  });
+
+  if ( !user ) {
+    return res.status(422).json({ errors: [{ status: 'Not Found', message: 'Invalid userId' }] });
+  }
+
   if (!org) {
     return res.status(404).json({ status: 'Not Found', message: 'Organisation not found' });
   }
