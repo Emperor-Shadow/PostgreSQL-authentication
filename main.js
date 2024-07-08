@@ -8,11 +8,6 @@ const prisma = new PrismaClient();
 const SECRET =  process.env.JWT_SECRET;
 const PORT = process.env.PORT || 3000;
 
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
-});
-
-
 app.use(express.json());
 
 
@@ -265,4 +260,9 @@ app.post('/api/organisations/:orgId/users', verifyToken, async (req, res) => {
     status: 'success',
     message: 'User added to organisation successfully'
   });
+});
+
+
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
 });
