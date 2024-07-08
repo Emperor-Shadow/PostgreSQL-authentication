@@ -94,8 +94,6 @@ app.post('/auth/register', async (req, res) => {
 
 
 
-
-
   // Login Endpoint
 app.post('/auth/login', async (req, res) => {
   const { email, password } = req.body;
@@ -267,4 +265,3 @@ app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
 
-module.exports = app;
