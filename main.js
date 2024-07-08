@@ -7,10 +7,11 @@ const app = express();
 const prisma = new PrismaClient();
 const SECRET =  process.env.JWT_SECRET;
 const PORT = process.env.PORT || 3000;
+import verifyToken from "./middleware/authMiddleware";
 
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
-});
+// app.listen(PORT, () => {
+//   console.log(`Server is running on port ${PORT}`);
+// });
 
 
 app.use(express.json());
@@ -22,7 +23,12 @@ app.post('/auth/register', async (req, res) => {
   
     // Validation
     if (!firstName || !lastName || !email || !password) {
-      return res.status(422).json({ errors: [{ field: 'validation', message: 'Missing required fields' }] });
+      return res.status(422).json({ errors: [
+        !firstName && { field: "firstName", message: "First name is required" },
+        !lastName && { field: "lastName", message: "Last name is required" },
+        !email && { field: "email", message: "Email is required" },
+        !password && { field: "password", message: "Password is required" },
+      ].filter(Boolean), });
     }
   
     // Check for existing user
@@ -108,23 +114,6 @@ app.post('/auth/login', async (req, res) => {
   });
 });
 
-// Protected Middleware
-const verifyToken = (req, res, next) => {
-  const token = req.headers['authorization'];
-  if (!token) {
-    return res.status(403).json({ status: 'Forbidden', message: 'No token provided' });
-  }
-
-  // token = authHeader.split(" ")[1];
-  jwt.verify(token, SECRET, (err, decoded) => { 
-    if (err) {
-      return res.status(500).json({ status: 'Failed', message: 'Failed to authenticate token' });
-    }
-
-    req.userId = decoded.userId;
-    next();
-  });
-};
 
 // Get User
 app.get('/api/users/:id', verifyToken, async (req, res) => {
@@ -255,3 +244,5 @@ app.post('/api/organisations/:orgId/users', verifyToken, async (req, res) => {
     message: 'User added to organisation successfully'
   });
 });
+
+module.export = app;
